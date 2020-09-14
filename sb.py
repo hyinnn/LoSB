@@ -36,9 +36,21 @@ def hold(fav_odds, dog_odds):
     dog_bets = (fav_bets + fav_profit) / dog_decimal
 
     total = fav_bets + dog_bets
-    payout = fav_bets + 100
+    payout = fav_bets + 100 # The payout amount to the winner
 
     return (total - payout) / total
+
+
+# Calculate holds for decimal values
+def dec_hold(fav_odds, dog_odds):
+    fav_bets = 100 # Assuming a bet of 100 on the favourites
+    total_return = 100 * fav_odds
+    dog_bets = total_return / dog_odds
+
+    total_bets = fav_bets + dog_bets
+
+    return (total_bets - total_return) / total_bets
+
 
 
 # Calculate the probability required to breakeven for a given decimal odd 
@@ -46,12 +58,12 @@ def hold(fav_odds, dog_odds):
 def breakeven(decimal_odds):
     return 1 / decimal_odds
 
-# Take program input
-fav_odds = int(sys.argv[1])
-dog_odds = int(sys.argv[2])
 
+# Take program input
+fav_odds = float(sys.argv[1])
+dog_odds = float(sys.argv[2])
 
 # Output the breakeven and hold percentage
-print("Breakeven: " + str(round(breakeven(convert_to_dec(fav_odds)), 2)))
-print("Breakeven: " + str(round(breakeven(convert_to_dec(dog_odds)), 2)))
-print("Hold = " +  str(round(hold(fav_odds, dog_odds) * 100, 2)) + "%")
+print("Breakeven: " + str(round(breakeven(fav_odds), 2)))
+print("Breakeven: " + str(round(breakeven(dog_odds), 2)))
+print("Hold = " +  str(round(dec_hold(fav_odds, dog_odds) * 100, 2)) + "%")
